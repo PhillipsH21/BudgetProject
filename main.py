@@ -20,24 +20,35 @@ print("Test budget balance:", test_budget.get_balance())
 #Jack Stuff So Far
 from Budget import Budget
 
-def category_budget():
-        categories = []
-        category = input("Please select a category: ")
+categories = []
+category = input("Please select a category or press Enter to quit: ")
 
-        while category not in categories:
-            print("Category", category, "is not in category list. Would you like to create a new category for", category,
-                  "?\nY or N")
-            new_cat = input()
+while len(category) > 0:
+    if category not in categories:
+        categories.append(category)
 
-            if new_cat == "Y":
-                categories.append(category)
+        budget = float(input("Please enter your budget: "))
+    else:
 
-                budget = float(input("Please enter your budget: "))
+        final = Budget(category, budget)
 
-                Budget(category, budget)
-                return
+        print("\nBudget category:", final.get_category())
+        print(category, "budget balance:", final.get_balance())
 
-            else:
-                break
+        operation = input("Would you like to Deposit or Withdraw? ")
 
-category_budget()
+        if operation == "Deposit":
+            dep_amount = float(input("Enter deposit amount: "))
+            final.deposit(dep_amount)
+            print("New", category, "budget balance:", final.get_balance())
+            budget = final.get_balance()
+
+        elif operation == "Withdraw":
+            with_amount = float(input("Enter withdraw amount: "))
+            final.withdraw(with_amount)
+            print("New", category, "budget balance:", final.get_balance())
+            budget = final.get_balance()
+
+        category = input("\nPlease select a category or press Enter to quit: ")
+else:
+    quit
