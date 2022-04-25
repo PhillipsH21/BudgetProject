@@ -22,20 +22,20 @@ from Budget import Budget
 from Transaction_History import Transactions, Node
 
 categories = []
-category = input("Please enter a category, type 'transactions' to get full list of transactions, or press Enter to quit:")
+category = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit:")
 transaction_list = Transactions()
 
 while len(category) > 0:
-    if category not in categories and category is not "transactions":
+    if category not in categories and category is not "Transactions":
         categories.append(category)
 
         budget = float(input("Please enter your budget: "))
     elif category is "transactions":
         node = transaction_list.head
         while node is not None:
-            print("Category: {}, Operation: {}, Amount: {}".format(node.category, node.action, node.amount))
+            print("Category: {}, Operation: {}, Amount: {}, Budget: {}".format(node.category, node.action, node.amount, node.budget))
             node = node.next
-        print()
+        category = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit:")
     else:
 
         final = Budget(category, budget)
@@ -62,6 +62,6 @@ while len(category) > 0:
             new_node = Node(category, operation, with_amount)
             transaction_list.append(new_node)
 
-        category = input("\nPlease select a category or press Enter to quit: ")
+        ccategory = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit:")
 else:
     quit
