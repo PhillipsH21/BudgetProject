@@ -1,8 +1,9 @@
 class Node:
-    def __init__(self, category="", action="", amount=0):
+    def __init__(self, category="", action="", amount=0, budget=0):
         self.category = category
         self.action = action
         self.amount = amount
+        self.budget = budget
         self.next = None
         self.prev = None
 
