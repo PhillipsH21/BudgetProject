@@ -17,7 +17,7 @@ print("Test budget category:", test_budget.get_category())
 print("Test budget balance:", test_budget.get_balance())
 
 
-#Jack Stuff So Far
+
 from Budget import Budget
 
 categories = []
