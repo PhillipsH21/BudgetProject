@@ -1,41 +1,21 @@
 from Budget import Budget
-#O'Neal 
-#Example Budget class usage
-test_budget = Budget("Test", 10)
-print("Test budget category:", test_budget.get_category())
-print("Test budget balance:", test_budget.get_balance())
-
-test_budget.deposit(30)
-print("Test budget balance after deposit:", test_budget.get_balance())
-
-test_budget.withdraw(20)
-print("Test budget balance after withdrawal:", test_budget.get_balance())
-
-test_budget.set_balance(0)
-test_budget.set_category("New category")
-print("Test budget category:", test_budget.get_category())
-print("Test budget balance:", test_budget.get_balance())
-
-
-#Jack Stuff So Far
-from Budget import Budget
 from Transaction_History import Transactions, Node
 
 categories = []
-category = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit:")
+category = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit: ")
 transaction_list = Transactions()
 
 while len(category) > 0:
-    if category not in categories and category is not "Transactions":
+    if category not in categories and category != "Transactions":
         categories.append(category)
 
         budget = float(input("Please enter your budget: "))
-    elif category is "transactions":
+    elif category == "Transactions":
         node = transaction_list.head
         while node is not None:
-            print("Category: {}, Operation: {}, Amount: {}, Budget: {}".format(node.category, node.action, node.amount, node.budget))
+            print("Category: {}, Operation: {}, Amount: {}".format(node.category, node.action, node.amount))
             node = node.next
-        category = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit:")
+        category = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit: ")
     else:
 
         final = Budget(category, budget)
@@ -43,25 +23,39 @@ while len(category) > 0:
         print("\nBudget category:", final.get_category())
         print(category, "budget balance:", final.get_balance())
 
-        operation = input("Would you like to Deposit or Withdraw? ")
+        operation = input("Would you like to Deposit, Withdraw, or Transfer? ")
 
         if operation == "Deposit":
             dep_amount = float(input("Enter deposit amount: "))
             final.deposit(dep_amount)
             print("New", category, "budget balance:", final.get_balance())
             budget = final.get_balance()
-            new_node = Node(category, operation, dep_amount, budget)
+            new_node = Node(category, operation, dep_amount)
             transaction_list.append(new_node)
 
-                        
         elif operation == "Withdraw":
             with_amount = float(input("Enter withdraw amount: "))
             final.withdraw(with_amount)
             print("New", category, "budget balance:", final.get_balance())
             budget = final.get_balance()
-            new_node = Node(category, operation, with_amount, budget)
+            new_node = Node(category, operation, with_amount)
             transaction_list.append(new_node)
 
-        ccategory = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit:")
+        elif operation == "Transfer":
+            receive_category = input("Enter the category you would like to transfer funds to: ")
+            if receive_category not in categories:
+                print("Category", receive_category, "does not exist.")
+                break
+            else:
+                transfer_amount = float(input("Enter transfer amount: "))
+                final.withdraw(transfer_amount)
+                final = Budget(receive_category, budget)
+                final.deposit(transfer_amount)
+                print("New", receive_category, "budget balance:", final.get_balance())
+
+            print("New", category, "budget balance:", final.get_balance())
+            budget = final.get_balance()
+
+        category = input("\nPlease enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit: ")
 else:
     quit
