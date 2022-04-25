@@ -50,7 +50,7 @@ while len(category) > 0:
             final.deposit(dep_amount)
             print("New", category, "budget balance:", final.get_balance())
             budget = final.get_balance()
-            new_node = Node(category, operation, dep_amount)
+            new_node = Node(category, operation, dep_amount, budget)
             transaction_list.append(new_node)
 
                         
@@ -59,7 +59,7 @@ while len(category) > 0:
             final.withdraw(with_amount)
             print("New", category, "budget balance:", final.get_balance())
             budget = final.get_balance()
-            new_node = Node(category, operation, with_amount)
+            new_node = Node(category, operation, with_amount, budget)
             transaction_list.append(new_node)
 
         ccategory = input("Please enter a category, type 'Transactions' to get full list of transactions, or press Enter to quit:")
