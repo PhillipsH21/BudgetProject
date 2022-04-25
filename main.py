@@ -53,7 +53,7 @@ while len(category) > 0:
             new_node = Node(category, operation, dep_amount)
             transaction_list.append(new_node)
 
-
+                        
         elif operation == "Withdraw":
             with_amount = float(input("Enter withdraw amount: "))
             final.withdraw(with_amount)
